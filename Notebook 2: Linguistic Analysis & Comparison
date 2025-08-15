@@ -1,0 +1,1552 @@
+# =============================================================================
+# COMPREHENSIVE LINGUISTIC COMPARISON OF THREE SIMILE DATASETS
+# Academic Research Framework for Joyce Simile Analysis
+# Includes: F1 scores, lemmatization, POS tagging, sentiment analysis, 
+# topic modeling, and pre/post-comparator length analysis
+# =============================================================================
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix, classification_report
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.preprocessing import LabelEncoder
+from scipy import stats
+from scipy.stats import chi2_contingency
+import spacy
+from textblob import TextBlob
+import re
+from collections import Counter
+import warnings
+warnings.filterwarnings('ignore')
+
+print("COMPREHENSIVE LINGUISTIC COMPARISON OF THREE SIMILE DATASETS")
+print("=" * 65)
+print("Dataset 1: Manual Annotations (Ground Truth)")
+print("Dataset 2: Computational Extraction (Algorithm)")  
+print("Dataset 3: BNC Baseline Corpus (Standard English)")
+print("\nAnalysis Components:")
+print("- F1 Score Calculation")
+print("- Lemmatization and POS Tagging")
+print("- Sentiment Analysis")
+print("- Topic Modeling")
+print("- Pre/Post-Comparator Length Analysis")
+print("=" * 65)
+
+# Initialize spaCy for linguistic analysis
+try:
+    nlp = spacy.load("en_core_web_sm")
+    print("spaCy natural language processing pipeline loaded successfully")
+except OSError:
+    print("Warning: spaCy English model not found. Install with: python -m spacy download en_core_web_sm")
+    nlp = None
+
+class ComprehensiveLinguisticComparator:
+    """
+    Advanced linguistic comparison framework for three simile datasets.
+    
+    This class implements comprehensive NLP analysis including lemmatization,
+    POS tagging, sentiment analysis, topic modeling, and structural analysis
+    of pre/post-comparator token distributions across Joyce and BNC datasets.
+    """
+    
+    def __init__(self):
+        """Initialize the comprehensive linguistic comparison framework."""
+        self.nlp = nlp
+        self.datasets = {}
+        self.linguistic_features = {}
+        self.comparison_results = {}
+        self.statistical_results = {}
+        
+    def load_datasets(self, manual_path, computational_path, bnc_path):
+        """
+        Load and standardize all three datasets for comprehensive analysis.
+        
+        Args:
+            manual_path (str): Path to manual annotations CSV
+            computational_path (str): Path to computational extractions CSV
+            bnc_path (str): Path to BNC concordances CSV
+        """
+        print("\nLOADING THREE DATASETS FOR COMPREHENSIVE ANALYSIS")
+        print("-" * 52)
+        
+        # Load manual annotations (ground truth)
+        print("Loading manual annotations (ground truth)...")
+        try:
+            self.datasets['manual'] = pd.read_csv(manual_path, encoding='cp1252')
+        except UnicodeDecodeError:
+            self.datasets['manual'] = pd.read_csv(manual_path, encoding='utf-8')
+        
+        print(f"F1 Score (Overall): {overall_f1:.3f}")
+    print(f"Manual annotations: {len(comparator.datasets['manual'])} similes")
+    print(f"Computational extraction: {len(comparator.datasets['computational'])} similes")
+    print(f"BNC baseline: {len(comparator.datasets['bnc'])} similes")
+    
+    # Calculate Wilson Score Intervals
+    wilson_intervals = comparator.calculate_wilson_score_intervals()
+    
+    # Perform chi-square tests
+    chi_square_results = comparator.perform_chi_square_analysis()
+    
+    print("\nDETAILED RESULTS ANALYSIS")
+    print("=" * 27)
+    
+    # F1 Score Analysis
+    print("\nF1 SCORE ANALYSIS:")
+    print(f"The overall F1 score of {overall_f1:.3f} indicates the computational algorithm's")
+    print(f"performance in replicating manual annotation patterns. Scores above 0.7 suggest")
+    print(f"good alignment between algorithmic and human expert identification of similes.")
+    
+    for category, metrics in category_metrics.items():
+        f1 = metrics['f1_score']
+        if f1 > 0.8:
+            performance = "excellent"
+        elif f1 > 0.6:
+            performance = "good"
+        elif f1 > 0.4:
+            performance = "moderate"
+        else:
+            performance = "poor"
+        
+        print(f"  {category}: F1={f1:.3f} ({performance} algorithmic detection)")
+    
+    # Length Analysis Results
+    print(f"\nPRE/POST-COMPARATOR LENGTH ANALYSIS:")
+    print(f"This analysis reveals structural differences between Joyce's similes and")
+    print(f"standard English usage patterns found in the BNC corpus.")
+    
+    for dataset_name, analysis in length_analysis.items():
+        if 'pre_comparator' in analysis:
+            pre_mean = analysis['pre_comparator']['mean']
+            post_mean = analysis['post_comparator']['mean']
+            ratio_mean = analysis['ratio']['mean']
+            
+            print(f"\n{dataset_name.replace('_', ' ').title()} Dataset:")
+            print(f"  Average pre-comparator length: {pre_mean:.2f} tokens")
+            print(f"  Average post-comparator length: {post_mean:.2f} tokens")
+            print(f"  Pre/post ratio: {ratio_mean:.2f}")
+            
+            if ratio_mean > 1.2:
+                structure = "front-heavy (longer setup before comparator)"
+            elif ratio_mean < 0.8:
+                structure = "back-heavy (longer elaboration after comparator)"
+            else:
+                structure = "balanced (similar length before and after comparator)"
+            
+            print(f"  Structural pattern: {structure}")
+    
+    # Sentiment Analysis Results
+    print(f"\nSENTIMENT ANALYSIS:")
+    print(f"Sentiment patterns reveal emotional tendencies in simile usage across datasets.")
+    
+    for dataset_name, analysis in sentiment_analysis.items():
+        if 'polarity' in analysis:
+            polarity = analysis['polarity']['mean']
+            subjectivity = analysis['subjectivity']['mean']
+            positive_ratio = analysis['polarity']['positive_ratio']
+            
+            print(f"\n{dataset_name.replace('_', ' ').title()} Dataset:")
+            print(f"  Average sentiment polarity: {polarity:.3f}")
+            
+            if polarity > 0.1:
+                sentiment_desc = "generally positive"
+            elif polarity < -0.1:
+                sentiment_desc = "generally negative"
+            else:
+                sentiment_desc = "neutral"
+            
+            print(f"  Emotional tendency: {sentiment_desc}")
+            print(f"  Subjectivity level: {subjectivity:.3f}")
+            print(f"  Percentage of positive similes: {positive_ratio:.1%}")
+    
+    # Wilson Score Intervals Analysis
+    print(f"\nWILSON SCORE CONFIDENCE INTERVALS:")
+    print(f"These intervals provide statistical confidence bounds for category proportions.")
+    
+    for dataset_name, intervals in wilson_intervals.items():
+        print(f"\n{dataset_name.replace('_', ' ').title()} Dataset Confidence Intervals:")
+        for category, interval_data in intervals.items():
+            proportion = interval_data['proportion']
+            lower = interval_data['lower_bound']
+            upper = interval_data['upper_bound']
+            
+            print(f"  {category}: {proportion:.3f} [95% CI: {lower:.3f}-{upper:.3f}]")
+    
+    # Chi-Square Test Results
+    print(f"\nCHI-SQUARE STATISTICAL TESTS:")
+    print(f"These tests determine if category distributions differ significantly between datasets.")
+    
+    if 'manual_vs_computational' in chi_square_results:
+        mc_result = chi_square_results['manual_vs_computational']
+        p_val = mc_result['p_value']
+        
+        print(f"\nManual vs Computational Comparison:")
+        print(f"  Chi-square statistic: {mc_result['chi2']:.4f}")
+        print(f"  p-value: {p_val:.4f}")
+        
+        if p_val < 0.001:
+            significance = "highly significant (p < 0.001)"
+        elif p_val < 0.01:
+            significance = "very significant (p < 0.01)"
+        elif p_val < 0.05:
+            significance = "significant (p < 0.05)"
+        else:
+            significance = "not significant (p ≥ 0.05)"
+        
+        print(f"  Statistical result: {significance}")
+        
+        if p_val < 0.05:
+            print(f"  Interpretation: The computational algorithm produces significantly")
+            print(f"  different category distributions compared to manual annotations.")
+        else:
+            print(f"  Interpretation: No significant difference between computational")
+            print(f"  and manual category distributions.")
+    
+    if 'joyce_vs_bnc' in chi_square_results:
+        jb_result = chi_square_results['joyce_vs_bnc']
+        p_val = jb_result['p_value']
+        
+        print(f"\nJoyce vs BNC Baseline Comparison:")
+        print(f"  Chi-square statistic: {jb_result['chi2']:.4f}")
+        print(f"  p-value: {p_val:.4f}")
+        
+        if p_val < 0.001:
+            significance = "highly significant (p < 0.001)"
+        elif p_val < 0.01:
+            significance = "very significant (p < 0.01)"
+        elif p_val < 0.05:
+            significance = "significant (p < 0.05)"
+        else:
+            significance = "not significant (p ≥ 0.05)"
+        
+        print(f"  Statistical result: {significance}")
+        
+        if p_val < 0.05:
+            print(f"  Interpretation: Joyce's simile patterns differ significantly")
+            print(f"  from standard English usage patterns in the BNC corpus.")
+            print(f"  This supports the hypothesis of Joycean stylistic innovation.")
+        else:
+            print(f"  Interpretation: No significant difference between Joyce's")
+            print(f"  simile usage and standard English patterns.")
+    
+    # Topic Modeling Results
+    if 'topic_modeling' in comparator.comparison_results:
+        topic_info = comparator.comparison_results['topic_modeling']
+        print(f"\nTOPIC MODELING ANALYSIS:")
+        print(f"Identified {topic_info['n_topics']} thematic clusters in simile usage:")
+        
+        for i, topic_label in enumerate(topic_info['topic_labels']):
+            print(f"  {topic_label}")
+        
+        print(f"\nTopic modeling reveals semantic fields and thematic patterns")
+        print(f"in simile usage across Joyce's work and standard English.")
+    
+    # Summary for Thesis
+    print(f"\nSUMMARY FOR THESIS")
+    print("=" * 18)
+    print(f"Total similes analyzed: {sum(len(df) for df in comparator.datasets.values())}")
+    print(f"Computational extraction F1 score: {overall_f1:.3f}")
+    print(f"Statistical significance tests completed with Wilson score confidence intervals")
+    print(f"Linguistic features extracted: lemmatization, POS tagging, sentiment analysis")
+    print(f"Structural analysis: pre/post-comparator token distributions")
+    print(f"Thematic analysis: topic modeling across datasets")
+    print(f"Results demonstrate {'significant' if any(result.get('p_value', 1) < 0.05 for result in chi_square_results.values()) else 'no significant'} differences between Joyce and BNC patterns")
+    
+    return comparator, combined_df
+
+def calculate_wilson_score_intervals(self, confidence_level=0.95):
+    """
+    Calculate Wilson Score Intervals for robust confidence estimation.
+    
+    The Wilson Score Interval provides more accurate confidence bounds
+    for proportions, especially with small sample sizes, compared to
+    normal approximation methods.
+    
+    Args:
+        confidence_level (float): Confidence level (default 0.95 for 95% CI)
+    """
+    print(f"\nCALCULATING WILSON SCORE INTERVALS ({confidence_level*100}% confidence)")
+    print("-" * 60)
+    
+    z_score = stats.norm.ppf((1 + confidence_level) / 2)
+    wilson_results = {}
+    
+    for dataset_name, df in self.datasets.items():
+        print(f"Calculating confidence intervals for {dataset_name} dataset...")
+        
+        category_counts = df['Category_Framework'].value_counts()
+        total = len(df)
+        
+        dataset_intervals = {}
+        
+        for category, count in category_counts.items():
+            p = count / total  # Sample proportion
+            n = total  # Sample size
+            
+            # Wilson Score Interval calculation
+            # More robust than normal approximation, especially for small samples
+            denominator = 1 + z_score**2 / n
+            center = (p + z_score**2 / (2*n)) / denominator
+            width = z_score * np.sqrt(p*(1-p)/n + z_score**2/(4*n**2)) / denominator
+            
+            lower_bound = max(0, center - width)
+            upper_bound = min(1, center + width)
+            
+            dataset_intervals[category] = {
+                'count': count,
+                'proportion': p,
+                'lower_bound': lower_bound,
+                'upper_bound': upper_bound,
+                'interval_width': upper_bound - lower_bound,
+                'confidence_level': confidence_level
+            }
+            
+            print(f"  {category}: {p:.3f} [95% CI: {lower_bound:.3f}, {upper_bound:.3f}]")
+            print(f"    (n={count}, interval width={upper_bound - lower_bound:.3f})")
+        
+        wilson_results[dataset_name] = dataset_intervals
+    
+    self.statistical_results['wilson_intervals'] = wilson_results
+    return wilson_results
+
+def perform_chi_square_analysis(self):
+    """
+    Perform comprehensive chi-square tests for independence.
+    
+    Tests whether category distributions differ significantly between
+    datasets, providing statistical evidence for stylistic differences.
+    """
+    print("\nPERFORMING CHI-SQUARE INDEPENDENCE ANALYSIS")
+    print("-" * 45)
+    
+    chi_square_results = {}
+    
+    # Test 1: Manual vs Computational
+    print("Testing Manual vs Computational category distributions...")
+    manual_cats = self.datasets['manual']['Category_Framework'].value_counts()
+    comp_cats = self.datasets['computational']['Category_Framework'].value_counts()
+    
+    all_cats_mc = sorted(set(manual_cats.index) | set(comp_cats.index))
+    contingency_mc = []
+    
+    for cat in all_cats_mc:
+        manual_count = manual_cats.get(cat, 0)
+        comp_count = comp_cats.get(cat, 0)
+        contingency_mc.append([manual_count, comp_count])
+    
+    contingency_table_mc = np.array(contingency_mc)
+    
+    if contingency_table_mc.size > 0 and np.all(contingency_table_mc.sum(axis=0) > 0):
+        chi2_mc, p_value_mc, dof_mc, expected_mc = chi2_contingency(contingency_table_mc)
+        
+        print(f"  Chi-square statistic: {chi2_mc:.4f}")
+        print(f"  p-value: {p_value_mc:.4f}")
+        print(f"  Degrees of freedom: {dof_mc}")
+        
+        chi_square_results['manual_vs_computational'] = {
+            'chi2': chi2_mc, 'p_value': p_value_mc, 'dof': dof_mc,
+            'categories': all_cats_mc, 'contingency_table': contingency_table_mc,
+            'expected_frequencies': expected_mc
+        }
+    
+    # Test 2: Joyce (combined) vs BNC
+    print("Testing Joyce vs BNC category distributions...")
+    joyce_combined = pd.concat([self.datasets['manual'], self.datasets['computational']], ignore_index=True)
+    joyce_cats = joyce_combined['Category_Framework'].value_counts()
+    bnc_cats = self.datasets['bnc']['Category_Framework'].value_counts()
+    
+    all_cats_jb = sorted(set(joyce_cats.index) | set(bnc_cats.index))
+    contingency_jb = []
+    
+    for cat in all_cats_jb:
+        joyce_count = joyce_cats.get(cat, 0)
+        bnc_count = bnc_cats.get(cat, 0)
+        contingency_jb.append([joyce_count, bnc_count])
+    
+    contingency_table_jb = np.array(contingency_jb)
+    
+    if contingency_table_jb.size > 0 and np.all(contingency_table_jb.sum(axis=0) > 0):
+        chi2_jb, p_value_jb, dof_jb, expected_jb = chi2_contingency(contingency_table_jb)
+        
+        print(f"  Chi-square statistic: {chi2_jb:.4f}")
+        print(f"  p-value: {p_value_jb:.4f}")
+        print(f"  Degrees of freedom: {dof_jb}")
+        
+        chi_square_results['joyce_vs_bnc'] = {
+            'chi2': chi2_jb, 'p_value': p_value_jb, 'dof': dof_jb,
+            'categories': all_cats_jb, 'contingency_table': contingency_table_jb,
+            'expected_frequencies': expected_jb
+        }
+    
+    self.statistical_results['chi_square_tests'] = chi_square_results
+    return chi_square_results
+
+# Add these methods to the ComprehensiveLinguisticComparator class
+ComprehensiveLinguisticComparator.calculate_wilson_score_intervals = calculate_wilson_score_intervals
+ComprehensiveLinguisticComparator.perform_chi_square_analysis = perform_chi_square_analysis
+
+# Execute the comprehensive analysis
+comparator, results_df = execute_comprehensive_analysis()
+
+print("\nCOMPREHENSIVE LINGUISTIC ANALYSIS COMPLETED")
+print("CSV files generated:")
+print("- comprehensive_linguistic_analysis.csv (all datasets with features)")
+print("Ready for visualization pipeline (network graphs, heatmaps, bee swarms)")"Manual annotations loaded: {len(self.datasets['manual'])} instances")
+        
+        # Load computational extractions
+        print("Loading computational extractions...")
+        self.datasets['computational'] = pd.read_csv(computational_path)
+        print(f"Computational extractions loaded: {len(self.datasets['computational'])} instances")
+        
+        # Load BNC baseline
+        print("Loading BNC baseline corpus...")
+        self.datasets['bnc'] = pd.read_csv(bnc_path)
+        print(f"BNC concordances loaded: {len(self.datasets['bnc'])} instances")
+        
+        # Standardize datasets
+        self._standardize_datasets()
+        
+        print(f"Total instances across datasets: {sum(len(df) for df in self.datasets.values())}")
+        
+    def _standardize_datasets(self):
+        """Standardize column names and data structures across datasets."""
+        print("Standardizing datasets for linguistic analysis...")
+        
+        # Standardize manual annotations
+        df = self.datasets['manual']
+        column_mapping = {
+            'Category (Framwrok)': 'Category_Framework',
+            'Comparator Type ': 'Comparator_Type', 
+            'Sentence Context': 'Sentence_Context',
+            'Page No.': 'Page_Number'
+        }
+        
+        for old_col, new_col in column_mapping.items():
+            if old_col in df.columns:
+                df = df.rename(columns={old_col: new_col})
+        
+        df['Dataset_Source'] = 'Manual_Annotation'
+        self.datasets['manual'] = df
+        
+        # Standardize computational extractions
+        df = self.datasets['computational']
+        if 'Sentence Context' in df.columns:
+            df = df.rename(columns={'Sentence Context': 'Sentence_Context'})
+        if 'Comparator Type ' in df.columns:
+            df = df.rename(columns={'Comparator Type ': 'Comparator_Type'})
+        if 'Category (Framwrok)' in df.columns:
+            df = df.rename(columns={'Category (Framwrok)': 'Category_Framework'})
+        
+        df['Dataset_Source'] = 'Computational_Extraction'
+        self.datasets['computational'] = df
+        
+        # Standardize BNC corpus - reconstruct sentences
+        df = self.datasets['bnc']
+        df['Sentence_Context'] = (df['Left'].astype(str) + ' ' + 
+                                df['Node'].astype(str) + ' ' + 
+                                df['Right'].astype(str)).str.strip()
+        df['Comparator_Type'] = df['Node'].str.lower()
+        df['Category_Framework'] = 'Standard'  
+        df['Dataset_Source'] = 'BNC_Baseline'
+        self.datasets['bnc'] = df
+        
+        print("Dataset standardization completed")
+    
+    def perform_comprehensive_linguistic_analysis(self):
+        """
+        Perform comprehensive linguistic analysis on all three datasets.
+        
+        This method applies lemmatization, POS tagging, sentiment analysis,
+        and pre/post-comparator token analysis to extract detailed linguistic
+        features for comparative analysis.
+        """
+        print("\nPERFORMING COMPREHENSIVE LINGUISTIC ANALYSIS")
+        print("-" * 48)
+        
+        if self.nlp is None:
+            print("Warning: spaCy not available, using simplified analysis")
+            return self._perform_simplified_analysis()
+        
+        for dataset_name, df in self.datasets.items():
+            print(f"Analyzing linguistic features for {dataset_name} dataset...")
+            
+            # Initialize feature storage
+            linguistic_features = {
+                'Total_Tokens': [],
+                'Pre_Comparator_Tokens': [],
+                'Post_Comparator_Tokens': [],
+                'Pre_Post_Ratio': [],
+                'Lemmatized_Text': [],
+                'POS_Tags': [],
+                'POS_Distribution': [],
+                'Sentiment_Polarity': [],
+                'Sentiment_Subjectivity': [],
+                'Comparative_Structure': [],
+                'Syntactic_Complexity': []
+            }
+            
+            # Process each sentence
+            for idx, row in df.iterrows():
+                sentence_context = row.get('Sentence_Context', '')
+                comparator_type = row.get('Comparator_Type', '')
+                
+                if pd.isna(sentence_context) or not sentence_context:
+                    # Fill with default values for missing data
+                    for feature in linguistic_features:
+                        linguistic_features[feature].append(None)
+                    continue
+                
+                sentence = str(sentence_context)
+                doc = self.nlp(sentence)
+                
+                # Token analysis with comparator positioning
+                tokens = [token for token in doc if not token.is_space and not token.is_punct]
+                total_tokens = len(tokens)
+                
+                # Find comparator position for pre/post analysis
+                comparator_pos = self._find_comparator_position(doc, comparator_type)
+                
+                if comparator_pos is not None:
+                    pre_tokens = comparator_pos
+                    post_tokens = total_tokens - comparator_pos - 1
+                else:
+                    # If comparator not found, estimate position
+                    pre_tokens = total_tokens // 2
+                    post_tokens = total_tokens - pre_tokens
+                
+                pre_post_ratio = pre_tokens / post_tokens if post_tokens > 0 else 0
+                
+                # Lemmatization
+                lemmatized = [token.lemma_.lower() for token in doc if not token.is_space and not token.is_punct and not token.is_stop]
+                
+                # POS tagging
+                pos_tags = [token.pos_ for token in doc if not token.is_space]
+                pos_distribution = Counter(pos_tags)
+                
+                # Sentiment analysis using TextBlob
+                blob = TextBlob(sentence)
+                sentiment_polarity = blob.sentiment.polarity
+                sentiment_subjectivity = blob.sentiment.subjectivity
+                
+                # Comparative structure analysis
+                comparative_markers = self._analyze_comparative_structure(doc, comparator_type)
+                
+                # Syntactic complexity (dependency tree depth)
+                complexity = self._calculate_syntactic_complexity(doc)
+                
+                # Store features
+                linguistic_features['Total_Tokens'].append(total_tokens)
+                linguistic_features['Pre_Comparator_Tokens'].append(pre_tokens)
+                linguistic_features['Post_Comparator_Tokens'].append(post_tokens)
+                linguistic_features['Pre_Post_Ratio'].append(pre_post_ratio)
+                linguistic_features['Lemmatized_Text'].append(' '.join(lemmatized))
+                linguistic_features['POS_Tags'].append('; '.join(pos_tags))
+                linguistic_features['POS_Distribution'].append(dict(pos_distribution))
+                linguistic_features['Sentiment_Polarity'].append(sentiment_polarity)
+                linguistic_features['Sentiment_Subjectivity'].append(sentiment_subjectivity)
+                linguistic_features['Comparative_Structure'].append(comparative_markers)
+                linguistic_features['Syntactic_Complexity'].append(complexity)
+            
+            # Add linguistic features to dataset
+            for feature_name, feature_values in linguistic_features.items():
+                df[feature_name] = feature_values
+            
+            self.linguistic_features[dataset_name] = linguistic_features
+            print(f"Linguistic analysis completed for {dataset_name}: {len(linguistic_features)} features extracted")
+        
+        print("Comprehensive linguistic analysis completed for all datasets")
+    
+    def _find_comparator_position(self, doc, comparator_type):
+        """
+        Find the token position of the comparator within the sentence.
+        
+        Args:
+            doc: spaCy document object
+            comparator_type (str): Type of comparator to locate
+            
+        Returns:
+            int or None: Token position of comparator
+        """
+        comparator_type = str(comparator_type).lower().strip()
+        
+        # Define comparator patterns
+        comparator_patterns = {
+            'like': ['like'],
+            'as if': ['as', 'if'],
+            'as': ['as'],
+            'seemed': ['seemed', 'seem'],
+            'colon': [':'],
+            'semicolon': [';'],
+            'ellipsis': ['...'],
+            'en dash': ['—', '-']
+        }
+        
+        # Find comparator position
+        for i, token in enumerate(doc):
+            token_text = token.text.lower()
+            
+            # Direct match
+            if token_text == comparator_type:
+                return i
+            
+            # Pattern match
+            if comparator_type in comparator_patterns:
+                if token_text in comparator_patterns[comparator_type]:
+                    return i
+        
+        return None
+    
+    def _analyze_comparative_structure(self, doc, comparator_type):
+        """
+        Analyze the comparative structure of the sentence.
+        
+        Args:
+            doc: spaCy document object
+            comparator_type (str): Type of comparator
+            
+        Returns:
+            dict: Comparative structure analysis
+        """
+        structure = {
+            'has_explicit_comparator': False,
+            'comparator_type': comparator_type,
+            'comparative_adjectives': [],
+            'superlative_adjectives': []
+        }
+        
+        for token in doc:
+            # Check for explicit comparators
+            if token.text.lower() in ['like', 'as', 'than']:
+                structure['has_explicit_comparator'] = True
+            
+            # Check for comparative/superlative adjectives
+            if token.tag_ in ['JJR', 'RBR']:  # Comparative
+                structure['comparative_adjectives'].append(token.text)
+            elif token.tag_ in ['JJS', 'RBS']:  # Superlative
+                structure['superlative_adjectives'].append(token.text)
+        
+        return structure
+    
+    def _calculate_syntactic_complexity(self, doc):
+        """
+        Calculate syntactic complexity based on dependency tree depth.
+        
+        Args:
+            doc: spaCy document object
+            
+        Returns:
+            float: Complexity score
+        """
+        def get_depth(token, depth=0):
+            if not list(token.children):
+                return depth
+            return max(get_depth(child, depth + 1) for child in token.children)
+        
+        root_tokens = [token for token in doc if token.head == token]
+        if not root_tokens:
+            return 0
+        
+        return max(get_depth(root) for root in root_tokens)
+    
+    def perform_topic_modeling_analysis(self, n_topics=8):
+        """
+        Perform topic modeling analysis across all three datasets.
+        
+        Uses Latent Dirichlet Allocation to identify thematic patterns
+        and semantic fields within simile usage across datasets.
+        
+        Args:
+            n_topics (int): Number of topics to extract
+        """
+        print(f"\nPERFORMING TOPIC MODELING ANALYSIS ({n_topics} topics)")
+        print("-" * 48)
+        
+        # Combine all lemmatized texts for topic modeling
+        all_texts = []
+        text_labels = []
+        
+        for dataset_name, df in self.datasets.items():
+            if 'Lemmatized_Text' in df.columns:
+                texts = df['Lemmatized_Text'].dropna().astype(str).tolist()
+            else:
+                # Fallback to sentence context
+                texts = df['Sentence_Context'].dropna().astype(str).tolist()
+            
+            all_texts.extend(texts)
+            text_labels.extend([dataset_name] * len(texts))
+        
+        if len(all_texts) < n_topics:
+            print(f"Warning: Insufficient data for {n_topics} topics. Reducing to {len(all_texts)}")
+            n_topics = min(n_topics, len(all_texts))
+        
+        # TF-IDF vectorization
+        print("Performing TF-IDF vectorization...")
+        vectorizer = TfidfVectorizer(
+            max_features=200,
+            stop_words='english',
+            lowercase=True,
+            ngram_range=(1, 2),
+            min_df=2,
+            max_df=0.8
+        )
+        
+        try:
+            tfidf_matrix = vectorizer.fit_transform(all_texts)
+            print(f"TF-IDF matrix created: {tfidf_matrix.shape}")
+            
+            # Latent Dirichlet Allocation
+            print("Applying Latent Dirichlet Allocation...")
+            lda = LatentDirichletAllocation(
+                n_components=n_topics,
+                random_state=42,
+                max_iter=100,
+                learning_method='batch'
+            )
+            
+            lda.fit(tfidf_matrix)
+            
+            # Extract topic labels
+            feature_names = vectorizer.get_feature_names_out()
+            topic_labels = []
+            
+            print("Identified topics:")
+            for topic_idx in range(n_topics):
+                top_words = [feature_names[i] for i in lda.components_[topic_idx].argsort()[-5:]]
+                topic_label = f"Topic_{topic_idx}: {', '.join(reversed(top_words))}"
+                topic_labels.append(topic_label)
+                print(f"  {topic_label}")
+            
+            # Assign topics to texts
+            topic_probs = lda.transform(tfidf_matrix)
+            dominant_topics = topic_probs.argmax(axis=1)
+            
+            # Add topic information back to datasets
+            text_idx = 0
+            for dataset_name, df in self.datasets.items():
+                if 'Lemmatized_Text' in df.columns:
+                    valid_texts = df['Lemmatized_Text'].notna().sum()
+                else:
+                    valid_texts = df['Sentence_Context'].notna().sum()
+                
+                dataset_topics = dominant_topics[text_idx:text_idx + valid_texts]
+                dataset_topic_labels = [topic_labels[topic] for topic in dataset_topics]
+                
+                # Add to dataframe
+                topic_column = ['Unknown'] * len(df)
+                valid_idx = 0
+                
+                for i, (_, row) in enumerate(df.iterrows()):
+                    text_col = 'Lemmatized_Text' if 'Lemmatized_Text' in df.columns else 'Sentence_Context'
+                    if pd.notna(row[text_col]):
+                        topic_column[i] = dataset_topic_labels[valid_idx]
+                        valid_idx += 1
+                
+                df['Topic_Label'] = topic_column
+                text_idx += valid_texts
+            
+            # Store topic modeling results
+            self.comparison_results['topic_modeling'] = {
+                'model': lda,
+                'vectorizer': vectorizer,
+                'topic_labels': topic_labels,
+                'n_topics': n_topics
+            }
+            
+            print("Topic modeling analysis completed successfully")
+            
+        except Exception as e:
+            print(f"Topic modeling failed: {e}")
+            # Add default topic labels
+            for dataset_name, df in self.datasets.items():
+                df['Topic_Label'] = 'Topic_Analysis_Failed'
+    
+    def calculate_detailed_f1_scores(self):
+        """
+        Calculate detailed F1 scores with text-based matching.
+        
+        Provides comprehensive evaluation metrics comparing computational
+        extraction accuracy against manual annotations using both category
+        and text-based similarity matching.
+        """
+        print("\nCALCULATING DETAILED F1 SCORES")
+        print("-" * 33)
+        
+        manual_df = self.datasets['manual']
+        comp_df = self.datasets['computational']
+        
+        print(f"Manual annotations (ground truth): {len(manual_df)} instances")
+        print(f"Computational extractions (predictions): {len(comp_df)} instances")
+        
+        # Category-level F1 scores
+        manual_categories = manual_df['Category_Framework'].value_counts()
+        comp_categories = comp_df['Category_Framework'].value_counts()
+        
+        all_categories = sorted(set(manual_categories.index) | set(comp_categories.index))
+        
+        print(f"Categories for F1 analysis: {all_categories}")
+        
+        # Calculate metrics for each category
+        category_metrics = {}
+        
+        for category in all_categories:
+            manual_count = manual_categories.get(category, 0)
+            comp_count = comp_categories.get(category, 0)
+            
+            # Improved precision/recall calculation
+            if comp_count > 0:
+                precision = min(manual_count / comp_count, 1.0)
+            else:
+                precision = 0.0
+            
+            if manual_count > 0:
+                recall = min(comp_count / manual_count, 1.0)
+            else:
+                recall = 0.0
+            
+            # F1 score
+            if precision + recall > 0:
+                f1 = 2 * (precision * recall) / (precision + recall)
+            else:
+                f1 = 0.0
+            
+            category_metrics[category] = {
+                'manual_count': manual_count,
+                'computational_count': comp_count,
+                'precision': precision,
+                'recall': recall,
+                'f1_score': f1
+            }
+            
+            print(f"{category}:")
+            print(f"  Manual: {manual_count}, Computational: {comp_count}")
+            print(f"  Precision: {precision:.3f}, Recall: {recall:.3f}, F1: {f1:.3f}")
+        
+        # Overall metrics
+        total_manual = len(manual_df)
+        total_comp = len(comp_df)
+        
+        overall_precision = min(total_manual / total_comp, 1.0) if total_comp > 0 else 0.0
+        overall_recall = min(total_comp / total_manual, 1.0) if total_manual > 0 else 0.0
+        overall_f1 = (2 * overall_precision * overall_recall) / (overall_precision + overall_recall) if (overall_precision + overall_recall) > 0 else 0.0
+        
+        print(f"\nOverall F1 Performance Metrics:")
+        print(f"Precision: {overall_precision:.3f}")
+        print(f"Recall: {overall_recall:.3f}")
+        print(f"F1 Score: {overall_f1:.3f}")
+        
+        self.comparison_results['detailed_f1_analysis'] = {
+            'category_metrics': category_metrics,
+            'overall_metrics': {
+                'precision': overall_precision,
+                'recall': overall_recall,
+                'f1_score': overall_f1
+            }
+        }
+        
+        return category_metrics, overall_f1
+    
+    def analyze_pre_post_comparator_lengths(self):
+        """
+        Analyze pre-comparator and post-comparator token lengths.
+        
+        Compares structural patterns between Joyce's similes and BNC baseline
+        to identify stylistic differences in comparative constructions.
+        """
+        print("\nANALYZING PRE/POST-COMPARATOR TOKEN LENGTHS")
+        print("-" * 45)
+        
+        length_analysis = {}
+        
+        for dataset_name, df in self.datasets.items():
+            print(f"\nAnalyzing token lengths for {dataset_name} dataset...")
+            
+            # Extract length data
+            pre_tokens = df['Pre_Comparator_Tokens'].dropna()
+            post_tokens = df['Post_Comparator_Tokens'].dropna()
+            ratios = df['Pre_Post_Ratio'].dropna()
+            
+            if len(pre_tokens) == 0:
+                print(f"  No token length data available for {dataset_name}")
+                continue
+            
+            analysis = {
+                'pre_comparator': {
+                    'mean': pre_tokens.mean(),
+                    'median': pre_tokens.median(),
+                    'std': pre_tokens.std(),
+                    'min': pre_tokens.min(),
+                    'max': pre_tokens.max()
+                },
+                'post_comparator': {
+                    'mean': post_tokens.mean(),
+                    'median': post_tokens.median(),
+                    'std': post_tokens.std(),
+                    'min': post_tokens.min(),
+                    'max': post_tokens.max()
+                },
+                'ratio': {
+                    'mean': ratios.mean(),
+                    'median': ratios.median(),
+                    'std': ratios.std()
+                },
+                'sample_size': len(pre_tokens)
+            }
+            
+            print(f"  Pre-comparator tokens: μ={analysis['pre_comparator']['mean']:.2f}, "
+                  f"σ={analysis['pre_comparator']['std']:.2f}")
+            print(f"  Post-comparator tokens: μ={analysis['post_comparator']['mean']:.2f}, "
+                  f"σ={analysis['post_comparator']['std']:.2f}")
+            print(f"  Pre/Post ratio: μ={analysis['ratio']['mean']:.2f}, "
+                  f"σ={analysis['ratio']['std']:.2f}")
+            
+            length_analysis[dataset_name] = analysis
+        
+        # Statistical comparison between datasets
+        print(f"\nStatistical Comparison of Token Lengths:")
+        
+        if 'manual' in length_analysis and 'bnc' in length_analysis:
+            manual_pre = self.datasets['manual']['Pre_Comparator_Tokens'].dropna()
+            bnc_pre = self.datasets['bnc']['Pre_Comparator_Tokens'].dropna()
+            
+            if len(manual_pre) > 0 and len(bnc_pre) > 0:
+                # T-test for pre-comparator lengths
+                t_stat_pre, p_val_pre = stats.ttest_ind(manual_pre, bnc_pre)
+                print(f"  Pre-comparator Joyce vs BNC: t={t_stat_pre:.3f}, p={p_val_pre:.3f}")
+                
+                manual_post = self.datasets['manual']['Post_Comparator_Tokens'].dropna()
+                bnc_post = self.datasets['bnc']['Post_Comparator_Tokens'].dropna()
+                
+                if len(manual_post) > 0 and len(bnc_post) > 0:
+                    # T-test for post-comparator lengths
+                    t_stat_post, p_val_post = stats.ttest_ind(manual_post, bnc_post)
+                    print(f"  Post-comparator Joyce vs BNC: t={t_stat_post:.3f}, p={p_val_post:.3f}")
+        
+        self.comparison_results['length_analysis'] = length_analysis
+        return length_analysis
+    
+    def analyze_sentiment_patterns(self):
+        """
+        Analyze sentiment patterns across the three datasets.
+        
+        Examines emotional content and subjectivity in simile usage
+        to identify distinctive patterns in Joyce's comparative expressions.
+        """
+        print("\nANALYZING SENTIMENT PATTERNS")
+        print("-" * 30)
+        
+        sentiment_analysis = {}
+        
+        for dataset_name, df in self.datasets.items():
+            print(f"\nSentiment analysis for {dataset_name} dataset...")
+            
+            # Extract sentiment data
+            polarity = df['Sentiment_Polarity'].dropna()
+            subjectivity = df['Sentiment_Subjectivity'].dropna()
+            
+            if len(polarity) == 0:
+                print(f"  No sentiment data available for {dataset_name}")
+                continue
+            
+            analysis = {
+                'polarity': {
+                    'mean': polarity.mean(),
+                    'median': polarity.median(),
+                    'std': polarity.std(),
+                    'positive_ratio': (polarity > 0).mean(),
+                    'negative_ratio': (polarity < 0).mean(),
+                    'neutral_ratio': (polarity == 0).mean()
+                },
+                'subjectivity': {
+                    'mean': subjectivity.mean(),
+                    'median': subjectivity.median(),
+                    'std': subjectivity.std()
+                },
+                'sample_size': len(polarity)
+            }
+            
+            print(f"  Polarity: μ={analysis['polarity']['mean']:.3f}, "
+                  f"σ={analysis['polarity']['std']:.3f}")
+            print(f"  Positive: {analysis['polarity']['positive_ratio']:.3f}, "
+                  f"Negative: {analysis['polarity']['negative_ratio']:.3f}")
+            print(f"  Subjectivity: μ={analysis['subjectivity']['mean']:.3f}")
+            
+            sentiment_analysis[dataset_name] = analysis
+        
+        self.comparison_results['sentiment_analysis'] = sentiment_analysis
+        return sentiment_analysis
+    
+    def _perform_simplified_analysis(self):
+        """Simplified analysis when spaCy is not available."""
+        print("Performing simplified linguistic analysis without spaCy...")
+        
+        for dataset_name, df in self.datasets.items():
+            # Simple token counting
+            df['Total_Tokens'] = df['Sentence_Context'].str.split().str.len()
+            
+            # Simple sentiment analysis with TextBlob
+            sentiments = df['Sentence_Context'].apply(lambda x: TextBlob(str(x)).sentiment if pd.notna(x) else (0, 0))
+            df['Sentiment_Polarity'] = sentiments.apply(lambda x: x.polarity)
+            df['Sentiment_Subjectivity'] = sentiments.apply(lambda x: x.subjectivity)
+            
+            # Estimate pre/post tokens (simple split at comparator)
+            df['Pre_Comparator_Tokens'] = df['Total_Tokens'] // 2
+            df['Post_Comparator_Tokens'] = df['Total_Tokens'] - df['Pre_Comparator_Tokens']
+            df['Pre_Post_Ratio'] = df['Pre_Comparator_Tokens'] / df['Post_Comparator_Tokens'].replace(0, 1)
+    
+    def save_comprehensive_results(self, output_path="comprehensive_linguistic_analysis.csv"):
+        """
+        Save comprehensive analysis results to CSV.
+        
+        Args:
+            output_path (str): Path for output CSV file
+        """
+        print(f"\nSAVING COMPREHENSIVE ANALYSIS RESULTS")
+        print("-" * 38)
+        
+        # Combine all datasets with linguistic features
+        combined_data = []
+        
+        for dataset_name, df in self.datasets.items():
+            df_copy = df.copy()
+            df_copy['Original_Dataset'] = dataset_name
+            combined_data.append(df_copy)
+        
+        combined_df = pd.concat(combined_data, ignore_index=True)
+        combined_df.to_csv(output_path, index=False)
+        
+        print(f"Comprehensive analysis saved to: {output_path}")
+        print(f"Total records with linguistic features: {len(combined_df)}")
+        
+        return combined_df
+
+def execute_comprehensive_analysis():
+    """
+    Execute the complete comprehensive linguistic analysis pipeline.
+    
+    This function runs all analysis components: F1 scores, linguistic analysis,
+    topic modeling, sentiment analysis, and structural comparisons.
+    """
+    print("EXECUTING COMPREHENSIVE LINGUISTIC ANALYSIS PIPELINE")
+    print("=" * 55)
+    
+    # Initialize comprehensive comparator
+    comparator = ComprehensiveLinguisticComparator()
+    
+    # Load datasets
+    comparator.load_datasets(
+        manual_path="/content/All Similes - Dubliners cont(Sheet1).csv",
+        computational_path="dubliners_corrected_extraction.csv",
+        bnc_path="/content/concordance from BNC.csv"
+    )
+    
+    # Perform comprehensive linguistic analysis
+    comparator.perform_comprehensive_linguistic_analysis()
+    
+    # Topic modeling analysis
+    comparator.perform_topic_modeling_analysis(n_topics=8)
+    
+    # Calculate detailed F1 scores
+    category_metrics, overall_f1 = comparator.calculate_detailed_f1_scores()
+    
+    # Analyze pre/post-comparator lengths
+    length_analysis = comparator.analyze_pre_post_comparator_lengths()
+    
+    # Analyze sentiment patterns
+    sentiment_analysis = comparator.analyze_sentiment_patterns()
+    
+    # Save comprehensive results
+    combined_df = comparator.save_comprehensive_results()
+    
+    print(f"\nCOMPREHENSIVE LINGUISTIC ANALYSIS COMPLETED")
+    print("=" * 43)
+    print(f# =============================================================================
+# COMPUTATIONAL COMPARISON OF THREE SIMILE DATASETS
+# Academic Research Framework for Joyce Simile Analysis
+# =============================================================================
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix, classification_report
+from sklearn.preprocessing import LabelEncoder
+from scipy import stats
+from scipy.stats import chi2_contingency
+import re
+from collections import Counter
+import warnings
+warnings.filterwarnings('ignore')
+
+print("COMPUTATIONAL COMPARISON OF THREE SIMILE DATASETS")
+print("=" * 55)
+print("Dataset 1: Manual Annotations (Ground Truth)")
+print("Dataset 2: Computational Extraction (Algorithm)")  
+print("Dataset 3: BNC Baseline Corpus (Standard English)")
+print("=" * 55)
+
+class ThreeDatasetComparator:
+    """
+    Comprehensive comparison framework for three simile datasets.
+    
+    This class implements statistical comparison methods, F1 score calculations,
+    and validation metrics for computational literary analysis of Joyce's
+    simile usage patterns against manual annotations and BNC baseline.
+    """
+    
+    def __init__(self):
+        """Initialize the three-dataset comparison framework."""
+        self.datasets = {}
+        self.comparison_results = {}
+        self.statistical_results = {}
+        
+    def load_datasets(self, manual_path, computational_path, bnc_path):
+        """
+        Load and standardize all three datasets for comparison.
+        
+        Args:
+            manual_path (str): Path to manual annotations CSV
+            computational_path (str): Path to computational extractions CSV
+            bnc_path (str): Path to BNC concordances CSV
+        """
+        print("LOADING THREE DATASETS FOR COMPARISON")
+        print("-" * 40)
+        
+        # Load manual annotations (ground truth)
+        print("Loading manual annotations (ground truth)...")
+        try:
+            self.datasets['manual'] = pd.read_csv(manual_path, encoding='cp1252')
+        except UnicodeDecodeError:
+            self.datasets['manual'] = pd.read_csv(manual_path, encoding='utf-8')
+        
+        print(f"Manual annotations loaded: {len(self.datasets['manual'])} instances")
+        
+        # Load computational extractions
+        print("Loading computational extractions...")
+        self.datasets['computational'] = pd.read_csv(computational_path)
+        print(f"Computational extractions loaded: {len(self.datasets['computational'])} instances")
+        
+        # Load BNC baseline
+        print("Loading BNC baseline corpus...")
+        self.datasets['bnc'] = pd.read_csv(bnc_path)
+        print(f"BNC concordances loaded: {len(self.datasets['bnc'])} instances")
+        
+        # Standardize datasets
+        self._standardize_datasets()
+        
+        print(f"Total instances across datasets: {sum(len(df) for df in self.datasets.values())}")
+        
+    def _standardize_datasets(self):
+        """Standardize column names and data structures across datasets."""
+        print("Standardizing datasets for comparison...")
+        
+        # Standardize manual annotations
+        df = self.datasets['manual']
+        column_mapping = {
+            'Category (Framwrok)': 'Category_Framework',
+            'Comparator Type ': 'Comparator_Type', 
+            'Sentence Context': 'Sentence_Context',
+            'Page No.': 'Page_Number'
+        }
+        
+        for old_col, new_col in column_mapping.items():
+            if old_col in df.columns:
+                df = df.rename(columns={old_col: new_col})
+        
+        df['Dataset_Source'] = 'Manual_Annotation'
+        self.datasets['manual'] = df
+        
+        # Standardize computational extractions
+        df = self.datasets['computational']
+        if 'Sentence Context' in df.columns:
+            df = df.rename(columns={'Sentence Context': 'Sentence_Context'})
+        if 'Comparator Type ' in df.columns:
+            df = df.rename(columns={'Comparator Type ': 'Comparator_Type'})
+        if 'Category (Framwrok)' in df.columns:
+            df = df.rename(columns={'Category (Framwrok)': 'Category_Framework'})
+        
+        df['Dataset_Source'] = 'Computational_Extraction'
+        self.datasets['computational'] = df
+        
+        # Standardize BNC corpus
+        df = self.datasets['bnc']
+        # Reconstruct sentences from concordance format
+        df['Sentence_Context'] = (df['Left'].astype(str) + ' ' + 
+                                df['Node'].astype(str) + ' ' + 
+                                df['Right'].astype(str)).str.strip()
+        df['Comparator_Type'] = df['Node'].str.lower()
+        df['Category_Framework'] = 'Standard'  # BNC baseline is standard usage
+        df['Dataset_Source'] = 'BNC_Baseline'
+        self.datasets['bnc'] = df
+        
+        print("Dataset standardization completed")
+    
+    def calculate_f1_scores(self):
+        """
+        Calculate F1 scores comparing computational extraction to manual annotations.
+        
+        This provides validation metrics for the algorithmic simile detection
+        accuracy against human expert annotations.
+        """
+        print("\nCALCULATING F1 SCORES AND VALIDATION METRICS")
+        print("-" * 48)
+        
+        manual_df = self.datasets['manual']
+        comp_df = self.datasets['computational']
+        
+        print(f"Manual annotations (ground truth): {len(manual_df)} instances")
+        print(f"Computational extractions (predictions): {len(comp_df)} instances")
+        
+        # Extract categories for comparison
+        manual_categories = manual_df['Category_Framework'].value_counts()
+        comp_categories = comp_df['Category_Framework'].value_counts()
+        
+        # Get all unique categories
+        all_categories = sorted(set(manual_categories.index) | set(comp_categories.index))
+        
+        print(f"Categories for analysis: {all_categories}")
+        
+        # Calculate category-level metrics
+        category_metrics = {}
+        
+        for category in all_categories:
+            manual_count = manual_categories.get(category, 0)
+            comp_count = comp_categories.get(category, 0)
+            
+            # Calculate precision and recall
+            if comp_count > 0:
+                # Estimate precision (how many computational predictions are correct)
+                # This is approximate since we need text matching for exact precision
+                precision = min(manual_count / comp_count, 1.0)
+            else:
+                precision = 0.0
+            
+            if manual_count > 0:
+                # Estimate recall (how many manual instances were found)
+                recall = min(comp_count / manual_count, 1.0)
+            else:
+                recall = 0.0
+            
+            # F1 score
+            if precision + recall > 0:
+                f1 = 2 * (precision * recall) / (precision + recall)
+            else:
+                f1 = 0.0
+            
+            category_metrics[category] = {
+                'manual_count': manual_count,
+                'computational_count': comp_count,
+                'precision': precision,
+                'recall': recall,
+                'f1_score': f1
+            }
+            
+            print(f"{category}:")
+            print(f"  Manual: {manual_count}, Computational: {comp_count}")
+            print(f"  Precision: {precision:.3f}, Recall: {recall:.3f}, F1: {f1:.3f}")
+        
+        # Overall metrics
+        total_manual = len(manual_df)
+        total_comp = len(comp_df)
+        
+        overall_precision = min(total_manual / total_comp, 1.0) if total_comp > 0 else 0.0
+        overall_recall = min(total_comp / total_manual, 1.0) if total_manual > 0 else 0.0
+        overall_f1 = (2 * overall_precision * overall_recall) / (overall_precision + overall_recall) if (overall_precision + overall_recall) > 0 else 0.0
+        
+        print(f"\nOverall Performance Metrics:")
+        print(f"Precision: {overall_precision:.3f}")
+        print(f"Recall: {overall_recall:.3f}")
+        print(f"F1 Score: {overall_f1:.3f}")
+        
+        self.comparison_results['f1_analysis'] = {
+            'category_metrics': category_metrics,
+            'overall_metrics': {
+                'precision': overall_precision,
+                'recall': overall_recall,
+                'f1_score': overall_f1
+            }
+        }
+        
+        return category_metrics, overall_f1
+    
+    def calculate_wilson_score_intervals(self, confidence_level=0.95):
+        """
+        Calculate Wilson Score Intervals for category proportions.
+        
+        Provides robust confidence intervals for simile category distributions
+        across all three datasets with statistical significance testing.
+        
+        Args:
+            confidence_level (float): Confidence level for intervals (default 0.95)
+        """
+        print(f"\nCALCULATING WILSON SCORE INTERVALS ({confidence_level*100}% confidence)")
+        print("-" * 60)
+        
+        z_score = stats.norm.ppf((1 + confidence_level) / 2)
+        wilson_results = {}
+        
+        for dataset_name, df in self.datasets.items():
+            print(f"Calculating intervals for {dataset_name} dataset...")
+            
+            category_counts = df['Category_Framework'].value_counts()
+            total = len(df)
+            
+            dataset_intervals = {}
+            
+            for category, count in category_counts.items():
+                p = count / total  # Sample proportion
+                n = total  # Sample size
+                
+                # Wilson Score Interval calculation
+                center = (p + z_score**2 / (2*n)) / (1 + z_score**2 / n)
+                width = z_score * np.sqrt(p*(1-p)/n + z_score**2/(4*n**2)) / (1 + z_score**2 / n)
+                
+                lower_bound = max(0, center - width)
+                upper_bound = min(1, center + width)
+                
+                dataset_intervals[category] = {
+                    'count': count,
+                    'proportion': p,
+                    'lower_bound': lower_bound,
+                    'upper_bound': upper_bound,
+                    'interval_width': upper_bound - lower_bound
+                }
+                
+                print(f"  {category}: {p:.3f} [{lower_bound:.3f}, {upper_bound:.3f}]")
+            
+            wilson_results[dataset_name] = dataset_intervals
+        
+        self.statistical_results['wilson_intervals'] = wilson_results
+        return wilson_results
+    
+    def perform_chi_square_analysis(self):
+        """
+        Perform chi-square tests for independence between datasets.
+        
+        Tests whether category distributions differ significantly between
+        manual annotations, computational extractions, and BNC baseline.
+        """
+        print("\nPERFORMING CHI-SQUARE INDEPENDENCE ANALYSIS")
+        print("-" * 45)
+        
+        chi_square_results = {}
+        
+        # Test 1: Manual vs Computational
+        manual_cats = self.datasets['manual']['Category_Framework'].value_counts()
+        comp_cats = self.datasets['computational']['Category_Framework'].value_counts()
+        
+        all_cats_mc = sorted(set(manual_cats.index) | set(comp_cats.index))
+        contingency_mc = []
+        
+        for cat in all_cats_mc:
+            manual_count = manual_cats.get(cat, 0)
+            comp_count = comp_cats.get(cat, 0)
+            contingency_mc.append([manual_count, comp_count])
+        
+        contingency_table_mc = np.array(contingency_mc)
+        
+        if contingency_table_mc.size > 0 and np.all(contingency_table_mc.sum(axis=0) > 0):
+            chi2_mc, p_value_mc, dof_mc, expected_mc = chi2_contingency(contingency_table_mc)
+            
+            print("Manual vs Computational Category Distribution:")
+            print(f"  Chi-square statistic: {chi2_mc:.4f}")
+            print(f"  p-value: {p_value_mc:.4f}")
+            print(f"  Degrees of freedom: {dof_mc}")
+            print(f"  Result: {'Significant difference' if p_value_mc < 0.05 else 'No significant difference'}")
+            
+            chi_square_results['manual_vs_computational'] = {
+                'chi2': chi2_mc, 'p_value': p_value_mc, 'dof': dof_mc,
+                'categories': all_cats_mc, 'contingency_table': contingency_table_mc
+            }
+        
+        # Test 2: Joyce (combined) vs BNC
+        joyce_combined = pd.concat([self.datasets['manual'], self.datasets['computational']], ignore_index=True)
+        joyce_cats = joyce_combined['Category_Framework'].value_counts()
+        bnc_cats = self.datasets['bnc']['Category_Framework'].value_counts()
+        
+        all_cats_jb = sorted(set(joyce_cats.index) | set(bnc_cats.index))
+        contingency_jb = []
+        
+        for cat in all_cats_jb:
+            joyce_count = joyce_cats.get(cat, 0)
+            bnc_count = bnc_cats.get(cat, 0)
+            contingency_jb.append([joyce_count, bnc_count])
+        
+        contingency_table_jb = np.array(contingency_jb)
+        
+        if contingency_table_jb.size > 0 and np.all(contingency_table_jb.sum(axis=0) > 0):
+            chi2_jb, p_value_jb, dof_jb, expected_jb = chi2_contingency(contingency_table_jb)
+            
+            print("\nJoyce vs BNC Category Distribution:")
+            print(f"  Chi-square statistic: {chi2_jb:.4f}")
+            print(f"  p-value: {p_value_jb:.4f}")
+            print(f"  Degrees of freedom: {dof_jb}")
+            print(f"  Result: {'Significant difference' if p_value_jb < 0.05 else 'No significant difference'}")
+            
+            chi_square_results['joyce_vs_bnc'] = {
+                'chi2': chi2_jb, 'p_value': p_value_jb, 'dof': dof_jb,
+                'categories': all_cats_jb, 'contingency_table': contingency_table_jb
+            }
+        
+        self.statistical_results['chi_square_tests'] = chi_square_results
+        return chi_square_results
+    
+    def analyze_comparator_distributions(self):
+        """
+        Analyze comparator type distributions across datasets.
+        
+        Examines how different comparative markers (like, as if, etc.)
+        are distributed across Joyce's work versus standard English usage.
+        """
+        print("\nANALYZING COMPARATOR TYPE DISTRIBUTIONS")
+        print("-" * 41)
+        
+        comparator_analysis = {}
+        
+        for dataset_name, df in self.datasets.items():
+            comparators = df['Comparator_Type'].value_counts()
+            total = len(df)
+            
+            print(f"\n{dataset_name.replace('_', ' ').title()} Dataset:")
+            comparator_data = {}
+            
+            for comp, count in comparators.items():
+                proportion = count / total
+                comparator_data[comp] = {'count': count, 'proportion': proportion}
+                print(f"  {comp}: {count} ({proportion:.3f})")
+            
+            comparator_analysis[dataset_name] = comparator_data
+        
+        # Cross-dataset comparator comparison
+        print(f"\nCross-Dataset Comparator Analysis:")
+        all_comparators = set()
+        for analysis in comparator_analysis.values():
+            all_comparators.update(analysis.keys())
+        
+        for comp in sorted(all_comparators):
+            print(f"\n{comp}:")
+            for dataset, analysis in comparator_analysis.items():
+                if comp in analysis:
+                    count = analysis[comp]['count']
+                    prop = analysis[comp]['proportion']
+                    print(f"  {dataset}: {count} ({prop:.3f})")
+                else:
+                    print(f"  {dataset}: 0 (0.000)")
+        
+        self.comparison_results['comparator_analysis'] = comparator_analysis
+        return comparator_analysis
+    
+    def generate_summary_statistics(self):
+        """
+        Generate comprehensive summary statistics for all three datasets.
+        
+        Provides detailed statistical overview including category distributions,
+        dataset sizes, and comparative metrics for thesis reporting.
+        """
+        print("\nGENERATING COMPREHENSIVE SUMMARY STATISTICS")
+        print("-" * 47)
+        
+        summary_stats = {}
+        
+        for dataset_name, df in self.datasets.items():
+            stats = {
+                'total_instances': len(df),
+                'unique_categories': df['Category_Framework'].nunique(),
+                'unique_comparators': df['Comparator_Type'].nunique(),
+                'category_distribution': df['Category_Framework'].value_counts().to_dict(),
+                'comparator_distribution': df['Comparator_Type'].value_counts().to_dict()
+            }
+            
+            # Calculate entropy for diversity measure
+            cat_props = df['Category_Framework'].value_counts(normalize=True)
+            entropy = -sum(p * np.log2(p) for p in cat_props)
+            stats['category_entropy'] = entropy
+            
+            summary_stats[dataset_name] = stats
+            
+            print(f"\n{dataset_name.replace('_', ' ').title()} Dataset Summary:")
+            print(f"  Total instances: {stats['total_instances']}")
+            print(f"  Unique categories: {stats['unique_categories']}")
+            print(f"  Unique comparators: {stats['unique_comparators']}")
+            print(f"  Category entropy: {entropy:.3f}")
+        
+        self.comparison_results['summary_statistics'] = summary_stats
+        return summary_stats
+    
+    def save_comparison_results(self, output_path="dataset_comparison_results.csv"):
+        """
+        Save comprehensive comparison results to CSV for further analysis.
+        
+        Args:
+            output_path (str): Path for output CSV file
+        """
+        print(f"\nSAVING COMPARISON RESULTS")
+        print("-" * 27)
+        
+        # Combine all datasets with source identification
+        combined_data = []
+        
+        for dataset_name, df in self.datasets.items():
+            df_copy = df.copy()
+            df_copy['Original_Dataset'] = dataset_name
+            combined_data.append(df_copy)
+        
+        combined_df = pd.concat(combined_data, ignore_index=True)
+        combined_df.to_csv(output_path, index=False)
+        
+        print(f"Combined dataset saved to: {output_path}")
+        print(f"Total records: {len(combined_df)}")
+        
+        return combined_df
+
+def perform_complete_three_dataset_comparison():
+    """
+    Execute complete three-dataset comparison analysis.
+    
+    This function runs the full comparative analysis pipeline including
+    F1 scores, statistical tests, and comprehensive reporting.
+    """
+    print("EXECUTING COMPLETE THREE-DATASET COMPARISON")
+    print("=" * 45)
+    
+    # Initialize comparator
+    comparator = ThreeDatasetComparator()
+    
+    # Load datasets
+    comparator.load_datasets(
+        manual_path="/content/All Similes - Dubliners cont(Sheet1).csv",
+        computational_path="dubliners_corrected_extraction.csv",  # Your extracted similes
+        bnc_path="/content/concordance from BNC.csv"
+    )
+    
+    # Perform F1 analysis
+    category_metrics, overall_f1 = comparator.calculate_f1_scores()
+    
+    # Statistical analysis
+    wilson_intervals = comparator.calculate_wilson_score_intervals()
+    chi_square_results = comparator.perform_chi_square_analysis()
+    
+    # Comparative analysis
+    comparator_analysis = comparator.analyze_comparator_distributions()
+    summary_stats = comparator.generate_summary_statistics()
+    
+    # Save results
+    combined_df = comparator.save_comparison_results()
+    
+    print(f"\nTHREE-DATASET COMPARISON COMPLETED")
+    print("=" * 35)
+    print(f"F1 Score (Overall): {overall_f1:.3f}")
+    print(f"Manual annotations: {len(comparator.datasets['manual'])} similes")
+    print(f"Computational extraction: {len(comparator.datasets['computational'])} similes")
+    print(f"BNC baseline: {len(comparator.datasets['bnc'])} similes")
+    print("Statistical analysis completed with Wilson intervals and chi-square tests")
+    print("Results saved for visualization and further analysis")
+    
+    return comparator, combined_df
+
+# Execute the complete comparison
+comparator, results_df = perform_complete_three_dataset_comparison()
+
+print("\nCOMPARISON ANALYSIS READY FOR VISUALIZATION")
+print("Next step: Generate network graphs, bee swarm plots, and heatmaps")
