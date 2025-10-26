@@ -36,6 +36,10 @@ Much NLP work collapses “style” into generic signals. This project starts fr
 
 ---
 
+In the weak-labelling step, **Framed** is detected when the comparison is introduced and then *sustained across a longer span* using framing punctuation or resumptive comparator patterns (e.g., repeated “like / as if”, parentheticals, colon/semicolon/dash frames). Conflicts with **Standard** are resolved in favour of **Framed** when re-entry or framing is present and span length/comma density indicate distributed elaboration.
+
+Biehle, M. (2025). joyce-dubliners-similes-analysis (Version 2025.10.26). GitHub repository: https://github.com/mahb97/joyce-dubliners-similes-analysis
+
 ## Quick start
 
 ### Environment
@@ -44,3 +48,6 @@ Much NLP work collapses “style” into generic signals. This project starts fr
 # Python 3.10+
 pip install -U pandas numpy scikit-learn nltk spacy beautifulsoup4 tqdm jupyter
 python -m spacy download en_core_web_sm
+
+
+
